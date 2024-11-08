@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 15:15:27 by franmart          #+#    #+#              #
-#    Updated: 2024/11/02 14:31:25 by franmart         ###   ########.fr        #
+#    Updated: 2024/11/08 15:30:27 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ ifeq ($(HOSTTYPE),)
 endif
 
 NAME = libft_malloc_$(HOSTTYPE).so
+LINK_NAME = libft_malloc.so
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
@@ -39,6 +40,8 @@ ${NAME}: ${OBJ}
 	@$(MAKE) -s all bonus -C $(LIBFT_DIR)
 	@$(CC) $(FLAGS) $(INCLUDES) $(OBJ) -L$(LIBFT_DIR) -lft -shared -o $(NAME)
 	@echo "$(NAME) compiled!"
+	@echo "Linking libft_malloc.so -> $(NAME)"
+	@ln -s $(NAME) $(LINK_NAME)
 
 %.o: %.c
 	@git submodule update --init --recursive
@@ -55,6 +58,7 @@ clean:
 fclean: clean
 	@${RM} ${NAME}
 	@${RM} ${BONUS_NAME}
+	@${RM} ${LINK_NAME}
 	@$(MAKE) -s fclean -C  $(LIBFT_DIR)
 
 test: all
