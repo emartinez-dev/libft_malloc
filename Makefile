@@ -6,7 +6,7 @@
 #    By: franmart <franmart@student.42malaga.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 15:15:27 by franmart          #+#    #+#              #
-#    Updated: 2024/11/08 15:30:27 by franmart         ###   ########.fr        #
+#    Updated: 2025/01/24 18:32:38 by franmart         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,7 @@ FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 SRC_DIR =	src/
-SRCS 	=	free.c\
-			malloc.c\
-			realloc.c
+SRCS 	=	malloc.c
 
 SRC = ${addprefix ${SRC_DIR}, ${SRCS}}
 OBJ = ${SRC:.c=.o}
@@ -41,6 +39,7 @@ ${NAME}: ${OBJ}
 	@$(CC) $(FLAGS) $(INCLUDES) $(OBJ) -L$(LIBFT_DIR) -lft -shared -o $(NAME)
 	@echo "$(NAME) compiled!"
 	@echo "Linking libft_malloc.so -> $(NAME)"
+	@rm -f $(LINK_NAME)
 	@ln -s $(NAME) $(LINK_NAME)
 
 %.o: %.c
@@ -60,6 +59,7 @@ fclean: clean
 	@${RM} ${BONUS_NAME}
 	@${RM} ${LINK_NAME}
 	@$(MAKE) -s fclean -C  $(LIBFT_DIR)
+	@rm -f $(LINK_NAME)
 
 test: all
 	gcc $(NAME) test_main.c $(INCLUDES)

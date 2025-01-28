@@ -4,6 +4,9 @@
 
 int	main(void)
 {
+	int size = getpagesize();
+	printf("Page size: %d\n", size);
+	return (0);
 	void *ptr = malloc(1);
 	printf("Mallloc for 1 byte, ptr: %p\n", ptr);
 	void *ptr2 = realloc(ptr, 2);
